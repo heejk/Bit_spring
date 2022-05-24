@@ -46,6 +46,7 @@ public class ReplyController {
 		return insertCount == 1 ? new ResponseEntity<>("success", HttpStatus.OK) : new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	
+	/* 모든 댓글 조회 */
 	@GetMapping(value="/pages/{bno}/{page}",
 				produces= {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
 	public ResponseEntity<List<ReplyVO>> getList(@PathVariable("page") int page, @PathVariable("bno") Long bno) {
@@ -53,12 +54,12 @@ public class ReplyController {
 		return new ResponseEntity<>(service.getListByBno(bno), HttpStatus.OK);
 	}
 	
-	/* 댓글 조회 */
+	/* 특정 댓글 조회 */
 	@GetMapping(value="/{rno}",
 				produces= {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
-	public ResponseEntity<List<ReplyVO>> get(@PathVariable("rno") Long rno) {
+	public ResponseEntity<ReplyVO> get(@PathVariable("rno") Long rno) {
 		log.info("get: " + rno);
-		return new ResponseEntity<>(service.getListByBno(rno), HttpStatus.OK);
+		return new ResponseEntity<>(service.get(rno), HttpStatus.OK);
 	}
 	
 	/* 댓글 삭제 */

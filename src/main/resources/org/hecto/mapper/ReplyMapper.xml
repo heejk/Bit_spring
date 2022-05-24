@@ -21,14 +21,13 @@
    	<update id="update">
       update tbl_reply
       set reply = #{reply},
-      replyer = #{replyer},
       updateDate = sysdate
       where rno = #{rno}
    	</update>
    	
    	<!-- 댓글 목록 -->
    	<select id="getListByBno" resultType="org.hecto.domain.ReplyVO">
-		SELECT * FROM tbl_reply WHERE bno = #{bno}
+		SELECT * FROM tbl_reply WHERE bno = #{bno} ORDER BY rno 
 	</select>
 </mapper>
 

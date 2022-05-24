@@ -16,7 +16,7 @@
 	        <div class="panel panel-default">
 	            <div class="panel-heading">
 	                게시글 목록
-	                <button id='regBtn' type="button" class="btn btn-xs pull-right">글쓰기</button>
+	                <button id='regBtn' type="button" class="btn btn-primary btn-xs pull-right">글쓰기</button>
 	            </div>
 	            <!-- /.panel-heading -->
 	            <div class="panel-body">

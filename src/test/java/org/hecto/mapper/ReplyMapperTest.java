@@ -40,7 +40,7 @@ public class ReplyMapperTest {
 	
 	@Test
 	public void testRead() {
-		Long tagetRno = 6L;
+		Long tagetRno = 12L;
 		ReplyVO vo = mapper.read(tagetRno);
 		log.info(vo);
 	}
