@@ -1,0 +1,5 @@
+org/hecto/sample/SampleTest.class
+org/hecto/persistence/JDBCTest.class
+org/hecto/mapper/TimeMapperTest.class
+org/hecto/sample/HotelTest.class
+org/hecto/persistence/DataSourceTest.class

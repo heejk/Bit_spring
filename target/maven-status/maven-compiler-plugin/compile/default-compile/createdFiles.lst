@@ -1,0 +1,12 @@
+org/hecto/config/RootConfig.class
+org/bio11/myapp/HomeController.class
+org/hecto/mapper/TimeMapper.class
+org/hecto/controller/HomeController.class
+org/hecto/sample/Restaurant.class
+org/hecto/sample/Chef.class
+org/hecto/sample/SampleHotel.class
+org/hecto/controller/SampleController.class
+org/hecto/domain/SampleDTO.class
+org/hecto/domain/SampleDTOList.class
+org/hecto/config/WebConfig.class
+org/hecto/config/ServletConfig.class

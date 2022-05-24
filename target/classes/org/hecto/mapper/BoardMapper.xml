@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN
+" "http://mybatis.org/dtd/mybatis-3-mapper.dtd
+" >
+<mapper namespace="org.hecto.mapper.BoardMapper">
+	<select id="getList" resultType="org.hecto.domain.BoardVO">
+		SELECT * FROM tbl_board WHERE bno > 0	
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO tbl_board(title, content, writer) VALUES (#{title}, #{content}, #{writer})
+	</insert>
+	
+	<!-- 삽입시 키가 필요한 경우 -->
+	<!-- 생성된 게시물의 번호를 사용하는지에 따른 구분 (INSERT문을 생성하기 위해 생성된 PK값을 알아야 하는 경우) -->
+	<insert id="insertSelectKey">
+		<selectKey keyProperty="bno" order="BEFORE" resultType="long">
+			SELECT tbl_seq.NEXTVAL FROM dual
+		</selectKey>
+		INSERT INTO tbl_board(title, content, writer) VALUES (#{title}, #{content}, #{writer})
+	</insert>
+	
+	<!-- 게시물 조회 -->
+	<select id="read" resultType="org.hecto.domain.BoardVO">
+		SELECT * FROM tbl_board WHERE bno = #{bno}
+	</select>
+	
+	<!-- 게시물 삭제 -->
+	<delete id="delete">
+		DELETE FROM tbl_board WHERE bno = #{bno}
+	</delete>
+	
+	<!-- 게시물 수정 -->
+   	<update id="update">
+      update tbl_board
+      set title = #{title},
+      content = #{content},
+      writer = #{writer},
+      updateDate = sysdate
+      where bno = #{bno}
+   	</update>
+   	
+   	<!-- 검색  -->
+   	<select id="getListWithSearch" resultType="org.hecto.domain.BoardVO">
+		SELECT * FROM tbl_board 
+		WHERE <include refid="criteria"></include>
+		bno > 0
+	</select>
+   	
+   	<sql id="criteria">
+   		<trim prefix="(" suffix=") AND" prefixOverrides="OR">
+			<foreach item='type' collection="typeArr"> <!-- Criteria' getter -->
+				<trim prefix="OR">
+					<choose>
+						<when test="type=='T'.toString()">title like '%' || #{keyword} || '%'</when>
+						<when test="type=='C'.toString()">content like '%' || #{keyword} || '%'</when>
+						<when test="type=='W'.toString()">writer like '%' || #{keyword} || '%'</when>
+					</choose>
+				</trim>
+			</foreach>
+		</trim>
+   	</sql>
+   	
+   	<select id="getTotalCount" resultType="int">
+		SELECT count(*) FROM tbl_board 
+		WHERE <include refid="criteria"></include>
+		bno > 0
+	</select>
+</mapper>
+
