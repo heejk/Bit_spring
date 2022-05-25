@@ -135,13 +135,13 @@
 	               	alert("해당 종류의 파일은 업로드 할 수 없음");
 	               	return false;
 	            }
-	            return true;
-	         }
-	         
+				return true;
+			}
+	        
 	        //업로드 결과
-            for(var i=0; i<files.length; i++){
-            	if(!checkExtension(files[i].name, files[i].size))
-	                  return false;
+	        for(var i=0; i<files.length; i++){
+				if(!checkExtension(files[i].name, files[i].size))
+					return false;
 	           	
 				formData.append("uploadFile", files[i]);
 			}
@@ -162,30 +162,30 @@
                	}
             });
             
-	      $(".bigPictureWrapper").on("click", function(e){
-	         $(".bigPicture").animate({width: '0%', height:'0%'}, 1000);
-	         setTimeout(function(){
-	            $('.bigPictureWrapper').hide();
-	         }, 1000);
-	      });
-	               
-	         
-	         $(".uploadResult").on("click","button",function(e){
-	            var targetFile = $(this).data("file");
+            $(".bigPictureWrapper").on("click", function(e){
+            	$(".bigPicture").animate({width: '0%', height:'0%'}, 1000);
+            	setTimeout(function(){
+	            	$('.bigPictureWrapper').hide();
+	         	}, 1000);
+           	});
+            
+            $(".uploadResult").on("click","button",function(e){
+            	var targetFile = $(this).data("file");
 	            var type = $(this).data("type");
 	            var targetLi = $(this).closest("li");
 	            console.log(targetFile);
 	            
 	            $.ajax({
-	               url:'/deleteFile',
-	               data:{fileName: targetFile, type : type},
-	               dataType:'text',
-	               type:'post',
-	               success:function(result){
-	                  alert(result);
-	                  targetLi.remove();}
-	               });
-	            });    //uploadResult End
+	            	url:'/deleteFile',
+	               	data:{fileName: targetFile, type : type},
+	               	dataType:'text',
+	               	type:'post',
+	               	success:function(result){
+	               		alert(result);
+	                  	targetLi.remove();
+                  	}
+               	});
+            });    //uploadResult End
 	         
 	    });
 	</script>
