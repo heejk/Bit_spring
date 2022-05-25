@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.hecto.domain.BoardVO;
 import org.hecto.domain.Criteria;
+import org.hecto.mapper.BoardAttachMapper;
 import org.hecto.mapper.BoardMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,11 +19,22 @@ import lombok.extern.log4j.Log4j;
 public class BoardServiceImpl implements BoardService{
 	@Setter(onMethod_=@Autowired)
 	private BoardMapper mapper;
-
+	private BoardAttachMapper attachMapper;
+	
+	//@Transactional
 	@Override
 	public void register(BoardVO board) {
 		log.info("register........" + board.getBno());
 		mapper.insertSelectKey(board);
+		
+		// tbl_attach
+		if(board.getAttachList() == null || board.getAttachList().size() <= 0) 
+			return;
+
+		board.getAttachList().forEach(attach-> {
+			attach.setBno(board.getBno());
+			attachMapper.insert(attach);
+		});
 	}
 
 	@Override

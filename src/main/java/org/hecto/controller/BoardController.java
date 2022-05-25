@@ -34,6 +34,11 @@ public class BoardController {
 	@PostMapping("/register")	
 	public String register(BoardVO board, RedirectAttributes rttr) {
 		log.info("register: " + board);
+		
+		// 데이터 수집 여부 확인
+		if(board.getAttachList() != null) 
+			board.getAttachList().forEach(attach->log.info(attach));
+		
 		service.register(board);
 		rttr.addFlashAttribute("result" , board.getBno());
 		return "redirect:/board/list";  // 'redirect:'를 이용해서 다시 목록으로 이동 
@@ -69,7 +74,6 @@ public class BoardController {
 	public void register() {
 
 	}
-	
 	
 
 }
